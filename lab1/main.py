@@ -59,14 +59,19 @@ def GetCoef(index, prompt):
     return coef
 
 
+def Menu(coefs):
+    coefs.append(GetCoef(1, 'Введите коэффициент А:'))
+    coefs.append(GetCoef(2, 'Введите коэффициент B:'))
+    coefs.append(GetCoef(3, 'Введите коэффициент C:'))
+    print('\n\nРешаем биквадратное уравнение: ({})x^4+({})x^2+({}) = 0\n\n'.format(coefs[0], coefs[1], coefs[2]))
+
+
 def biquadralSolver():
-    a = GetCoef(1, 'Введите коэффициент А:')
-    b = GetCoef(2, 'Введите коэффициент B:')
-    c = GetCoef(3, 'Введите коэффициент C:')
-    print('\n\nРешаем биквадратное уравнение: ({})x^4+({})x^2+({}) = 0\n\n'.format(a, b, c))
+    coefs = []
+    Menu(coefs)
 
     realRoots = []
-    abstractRoots = GetAbstractRoots(a,b,c)
+    abstractRoots = GetAbstractRoots(coefs[0], coefs[1], coefs[2])
     ConvertAbstractRootsToReal(abstractRoots, realRoots)
 
     PrintRoots(realRoots)
