@@ -5,11 +5,11 @@ import math
 def ConvertAbstractRootsToReal(abstractRoots, realRoots):
     for tempRoot in abstractRoots:
         if tempRoot >= 0:
-                tempRoot = math.sqrt(tempRoot)
-                negativeRoot = - tempRoot
-        realRoots.append(tempRoot)
-        if negativeRoot != tempRoot:
-            realRoots.append(negativeRoot)
+            tempRoot = math.sqrt(tempRoot)
+            negativeRoot = - tempRoot
+            realRoots.append(tempRoot)
+            if negativeRoot != tempRoot:
+                realRoots.append(negativeRoot)
 
 
 def GetAbstractRoots(a, b, c):
@@ -63,7 +63,7 @@ def biquadralSolver():
     a = GetCoef(1, 'Введите коэффициент А:')
     b = GetCoef(2, 'Введите коэффициент B:')
     c = GetCoef(3, 'Введите коэффициент C:')
-    print('Решаем биквадратное уравнение: ({})x^4+({})x^2+({}) = 0'.format(a, b, c))
+    print('\n\nРешаем биквадратное уравнение: ({})x^4+({})x^2+({}) = 0\n\n'.format(a, b, c))
 
     realRoots = []
     abstractRoots = GetAbstractRoots(a,b,c)
