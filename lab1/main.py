@@ -66,7 +66,7 @@ def MenuInput(coefs):
     print('\n\nРешаем биквадратное уравнение: ({})x^4+({})x^2+({}) = 0\n\n'.format(coefs[0], coefs[1], coefs[2]))
 
 
-def biquadralSolver():
+def BiquadralSolver():
     coefs = []
     MenuInput(coefs)
 
@@ -77,7 +77,7 @@ def biquadralSolver():
     PrintRoots(realRoots)
 
 def main():
-    biquadralSolver()
+    BiquadralSolver()
 
 
 if __name__ == "__main__":
