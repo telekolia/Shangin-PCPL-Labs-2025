@@ -59,7 +59,7 @@ def GetCoef(index, prompt):
     return coef
 
 
-def Menu(coefs):
+def MenuInput(coefs):
     coefs.append(GetCoef(1, 'Введите коэффициент А:'))
     coefs.append(GetCoef(2, 'Введите коэффициент B:'))
     coefs.append(GetCoef(3, 'Введите коэффициент C:'))
@@ -68,7 +68,7 @@ def Menu(coefs):
 
 def biquadralSolver():
     coefs = []
-    Menu(coefs)
+    MenuInput(coefs)
 
     realRoots = []
     abstractRoots = GetAbstractRoots(coefs[0], coefs[1], coefs[2])
