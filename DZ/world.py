@@ -19,7 +19,8 @@ class World():
 
 
     def cout(self):
-        for i in range(map_size):
-            for j in range(map_size):
-                print(self.map[i][j].type, end=", ")
+        print("world map:")
+        for y in range(map_size):
+            for x in range(map_size):
+                print(self.map[x][y].type, end=" ")
             print()
