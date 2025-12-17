@@ -1,4 +1,4 @@
-from tile_textures import TileTextures
+from DZ.textures import TileTextures
 import pygame
 
 class Tile():

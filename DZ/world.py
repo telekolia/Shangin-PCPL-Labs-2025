@@ -7,10 +7,14 @@ for x in range(5, 7):
     for y in range(7, 9):
         default_map[x][y].type = "w"
 
+
+
 class World():
     def __init__(self, map = [row[:] for row in default_map]):
         self.map = [row[:] for row in map]
 
+    def update(self):
+        pass
 
     def draw(self, window):
         for i in range(map_size):
