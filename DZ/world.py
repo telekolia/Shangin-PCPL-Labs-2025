@@ -1,4 +1,7 @@
 from tile import Tile
+from systems.__init__ import RenderSystem, GrowthSystem
+from entities.bush import create_bush, generate_bushes
+
 
 map_size = 10
 
@@ -7,19 +10,23 @@ for x in range(5, 7):
     for y in range(7, 9):
         default_map[x][y].type = "w"
 
-
+default_entities = []
+generate_bushes(5, default_map, default_entities)
 
 class World():
-    def __init__(self, map = [row[:] for row in default_map]):
+    def __init__(self, entities = [row[:] for row in default_entities], map = [row[:] for row in default_map]):
         self.map = [row[:] for row in map]
+        self.entities = [row[:] for row in entities]
 
     def update(self):
-        pass
+        GrowthSystem.update(self.entities)
 
-    def draw(self, window):
+    def draw(self, TextureManager, window):
         for i in range(map_size):
             for j in range(map_size):
                 self.map[i][j].draw(window, i*64, j*64)
+
+        RenderSystem.draw(self.entities, TextureManager, window)
 
 
     def cout(self):
