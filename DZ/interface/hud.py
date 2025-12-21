@@ -43,6 +43,28 @@ class HUD():
     def _draw_sheep_hud(self, surface, entity, x, y):
         entity_id = id(entity)
 
+        if 'state' in entity:
+            state = entity['state']
+            state_font = pygame.font.Font(None, 20)  # Очень маленький шрифт
+            state_text = state_font.render(state.upper(), True, (220, 220, 220))
+
+            # Позиция: выше полосок здоровья
+            text_x = x + (self.tile_size - state_text.get_width()) // 2
+            text_y = y + self.offset_y - 20
+            surface.blit(state_text, (text_x, text_y))
+
+    # Отображаем target_id слева от овцы
+        if 'target_id' in entity and entity['target_id'] is not None:
+            target_font = pygame.font.Font(None, 20)
+            if entity['target_id'] != "nope":
+                target_text = target_font.render("found", True, (180, 220, 255))
+            else:
+                target_text = target_font.render("nope", True, (180, 220, 255))
+            # Позиция слева от овцы
+            target_x = x - target_text.get_width() - 20
+            target_y = y + self.tile_size // 2
+            surface.blit(target_text, (target_x, target_y))
+
         # Рисуем здоровье
         if 'Health' in entity:
             health = entity['Health']

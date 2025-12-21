@@ -1,5 +1,5 @@
 import random
-from components import Position, Renderable, Health, Hunger, Animal, State
+from components import Position, Renderable, Health, Hunger, Animal
 
 def create_sheep(x, y, is_baby=False):
     """Создать овцу или ягненка"""
