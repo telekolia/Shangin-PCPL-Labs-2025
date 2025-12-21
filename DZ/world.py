@@ -12,8 +12,8 @@ for x in range(5, 7):
         default_map[x][y].type = "w"
 
 default_entities = []
-generate_bushes(default_map, 5, default_entities)
-generate_sheep(default_map, 15, default_entities)
+generate_bushes(default_map, 1, default_entities)
+generate_sheep(default_map, 1, default_entities)
 
 class World():
     def __init__(self, entities = [row for row in default_entities], map = [row[:] for row in default_map]):

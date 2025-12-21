@@ -2,6 +2,8 @@ import random
 from math import sqrt
 
 class AnimalSystem():
+    targets = {}
+
     @staticmethod
     def update(entities, map):
         for entity in entities:
@@ -20,32 +22,59 @@ class AnimalSystem():
     def _update_herbivore(entity, entities, map):
         pos = entity['Position']
         hunger = entity['Hunger']
-        health = entity['Health']
+        state = entity['state']
+        target_id = entity['target_id']
 
-        # 1. Проверяем состояние
-        if hunger and hunger.current_satiety <= hunger.max_satiety * 0.7:
-            # Голодная - ищет еду
-            target = AnimalSystem._find_food(entity, entities, map)
-            if target:
-                AnimalSystem._move_towards(entity, entities, target, map)
-                # Если рядом с едой - едим
-                if AnimalSystem._distance(pos, target) <= 1:
-                    AnimalSystem._eat_food(entity, target, entities)
-            else:
-                # Нет еды - бродим
-                AnimalSystem._random_move(entity, map)
-        else:
-            # Сыта - бродит или отдыхает
-            if random.random() < 0.7:  # 70% шанс движения
-                AnimalSystem._random_move(entity, map)
+        AnimalSystem._update_state(entity)
 
-        # 2. Проверяем размножение
-        if (hunger and hunger.current_satiety > hunger.max_satiety * 0.8 and
-            'State' in entity and entity['State'].state != "pregnant"):
-            # Ищем партнера для размножения
+        AnimalSystem._define_target(entity, entities)
+
+        AnimalSystem._action(entity, entities)
+
+        if (hunger and hunger.current_satiety > hunger.max_satiety * 0.8 and 'State' in entity and entity['State'].state != "pregnant"):
             partner = AnimalSystem._find_partner(entity, entities)
             if partner:
                 AnimalSystem._breed(entity, partner, entities)
+
+    @staticmethod
+    def _update_state(entity):
+        hunger = entity['Hunger']
+        state = entity['state']
+
+        if hunger.current_satiety > hunger.max_satiety * 0.7:
+            state = "chill"
+        elif hunger.current_satiety <= hunger.max_satiety * 0.7:
+            state = "hungry"
+
+    @classmethod
+    def _define_target(entity, entities):
+        state = entity['state']
+        target_id = entity['target_id']
+
+        if state == "hungry" and target_id not in AnimalSystem.targets:
+            target = AnimalSystem._find_food(entity, entities, map)
+            target_id = id(target)
+            AnimalSystem.targets[target_id] = target
+        elif state == "chill":
+            target_id = "nope"
+
+    @classmethod
+    def _action(entity, entities):
+        pos = entity['Position']
+        state = entity['state']
+        target_id = entity['target_id']
+
+        if target_id in AnimalSystem.targets:
+            target = AnimalSystem.targets[target_id]
+            AnimalSystem._move_towards(entity, entities, target['Position'], map)
+
+        if state == "hungry" and AnimalSystem._distance(pos, target['Position']) <= 1:
+            AnimalSystem._eat_food(entity, target['Position'], entities)
+            del AnimalSystem.targets[target_id]
+
+        if state == "chill":
+            if random.random() < 0.3:
+                AnimalSystem._random_move(entity, map)
 
     @staticmethod
     def _find_food(entity, entities, map):
@@ -74,7 +103,6 @@ class AnimalSystem():
 
     @staticmethod
     def _move_towards(entity, entities, target, map):
-        """Двигаться к цели"""
         pos = entity['Position']
 
         # Вычисляем направление
@@ -211,11 +239,11 @@ class AnimalSystem():
 
         # Проверяем других существ в клетке
         for other in entities:
-            if ('Position' in other and
-                other['Position'].x == x and
-                other['Position'].y == y and
-                other.get('type') != 'bush'):  # Кусты можно проходить
-                return False
+            if 'Position' in other:
+                if (other['Position'].x == x and
+                    other['Position'].y == y and
+                    other.get('type') != 'bush'):
+                    return False
 
         return True
 

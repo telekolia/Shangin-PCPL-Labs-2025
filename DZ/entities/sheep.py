@@ -19,23 +19,21 @@ def create_sheep(x, y, is_baby=False):
         'type': 'sheep',
         'Position': Position(x, y),
         'Renderable': Renderable(texture_name, layer=2),  # Животные поверх растений
-        'Health': Health(
-            current_hp=health,
-            max_hp=health,
-            death_texture_name="dead_sheep",
-            is_alive=True
-        ),
-        'Hunger': Hunger(
-            current_satiety=random.uniform(30.0, 50.0),
-            max_satiety=50.0
-        ),
-        'Animal': Animal(
-            type="herbivore",
-            max_amount_of_children=max_children,
-            adult_texture_name="sheep",
-            baby_texture_name="baby_sheep"
-        ),
-        'State': State("normal")  # normal, hungry, pregnant, dead
+        'Health': Health(current_hp = health,
+                         max_hp = health,
+                         death_texture_name = "dead_sheep",
+                         is_alive = True
+                         ),
+        'Hunger': Hunger(current_satiety = random.uniform(30.0, 50.0),
+                         max_satiety = 50.0
+                         ),
+        'Animal': Animal(type = "herbivore",
+                         max_amount_of_children = max_children,
+                         adult_texture_name = "sheep",
+                         baby_texture_name = "baby_sheep"
+                         ),
+        'state': "chill",
+        'target_id': "nope"
     }
 
 def generate_sheep(map, count, entities):

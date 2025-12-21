@@ -17,12 +17,6 @@ class Plant():
         self.growth_time = growrh_time
         self.growth_stage_texture_names = [row[:] for row in growth_stage_texture_names]
 
-
-class State():
-    def __init__(self, state):
-        self.state = state
-
-
 class Health():
     def __init__(self, current_hp, max_hp, death_texture_name, is_alive = True):
         self.current_hp = current_hp
