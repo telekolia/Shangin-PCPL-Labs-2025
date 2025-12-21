@@ -37,7 +37,7 @@ while running:
         turn_timer = 0
 
     # Render
-    world.draw(texture_manager, window)
+    world.draw(window, texture_manager)
     pygame.display.update()
 
 pygame.quit()

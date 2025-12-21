@@ -9,10 +9,10 @@ def create_bush(x, y):
         'type': 'bush',
         'Position': Position(x, y),
         'Renderable': Renderable('bush', 1),
-        'Plant': Plant(20, is_mature=False),
+        'Plant': Plant(40, growth_stage_texture_names, False),
     }
 
-def generate_bushes(count, map, entities):
+def generate_bushes(map, count, entities):
     planted_bushes = 0
     while planted_bushes < count:
         x = random.randint(0, len(map)-1)
