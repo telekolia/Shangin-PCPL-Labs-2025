@@ -1,6 +1,7 @@
 from tile import Tile
-from systems.__init__ import RenderSystem, GrowthSystem
+from systems.__init__ import RenderSystem, GrowthSystem, HealthSystem, HungerSystem, AnimalSystem
 from entities.bush import generate_bushes
+from entities.sheep import generate_sheep
 
 
 map_size = 10
@@ -12,6 +13,7 @@ for x in range(5, 7):
 
 default_entities = []
 generate_bushes(default_map, 5, default_entities)
+generate_sheep(default_map, 15, default_entities)
 
 class World():
     def __init__(self, entities = [row for row in default_entities], map = [row[:] for row in default_map]):
@@ -19,6 +21,9 @@ class World():
         self.entities = [row for row in entities]
 
     def update(self):
+        HealthSystem.update(self.entities)
+        HungerSystem.update(self.entities)
+        AnimalSystem.update(self.entities, self.map)
         GrowthSystem.update(self.entities)
 
     def draw(self, window, texture_manager):
