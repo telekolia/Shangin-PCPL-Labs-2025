@@ -148,61 +148,20 @@ class AnimalSystem():
 
     @staticmethod
     def _eat_food(entity, food_pos, entities):
-        """Съесть еду"""
-        # Находим растение по позиции
-        for plant in entities:
-            if ('Plant' in plant and 'Position' in plant and
-                plant['Position'].x == food_pos.x and
-                plant['Position'].y == food_pos.y):
+        if entity['Animal'].type == "herbivore":
+            for plant in entities:
+                if ('Plant' in plant and 'Position' in plant and
+                    plant['Position'].x == food_pos.x and
+                    plant['Position'].y == food_pos.y):
 
-                # Овца ест
-                if 'Hunger' in entity:
-                    hunger = entity['Hunger']
-                    hunger.current_satiety = min(
-                        hunger.max_satiety,
-                        hunger.current_satiety + 20
-                    )
-                    # print(f"🐑 Овца съела ягоды в ({food_pos.x},{food_pos.y})")
-
-                # Ягоды исчезают (но куст остается)
-                plant['Plant'].is_mature = False
-                plant['Plant'].growth_stage = 0
-                plant['Renderable'].texture_name = plant['Plant'].growth_stage_texture_names[0]
-                break
-
-    @staticmethod
-    def _find_partner(entity, entities):
-        """Найти партнера для размножения"""
-        pos = entity['Position']
-
-        for other in entities:
-            if (other is not entity and
-                'Animal' in other and
-                other['Animal'].type == "herbivore" and
-                'Health' in other and other['Health'].is_alive and
-                'State' in other and other['State'].state != "pregnant"):
-
-                other_pos = other['Position']
-                dist = AnimalSystem._distance(pos, other_pos)
-
-                if dist <= 2:  # Рядом
-                    return other
-        return None
-
-    @staticmethod
-    def _breed(entity, partner, entities):
-        """Размножение"""
-        # Устанавливаем состояние беременности
-        entity['State'].state = "pregnant"
-        partner['State'].state = "pregnant"
-
-        # Уменьшаем сытость
-        if 'Hunger' in entity:
-            entity['Hunger'].current_satiety -= 15
-        if 'Hunger' in partner:
-            partner['Hunger'].current_satiety -= 15
-
-        print(f"🐑 Овцы в ({entity['Position'].x},{entity['Position'].y}) размножаются!")
+                    if 'Hunger' in entity:
+                        hunger = entity['Hunger']
+                        hunger.current_satiety = min(hunger.max_satiety, hunger.current_satiety + 20)
+                        # print(f"🐑 Овца съела ягоды в ({food_pos.x},{food_pos.y})")
+                    plant['Plant'].is_mature = False
+                    plant['Plant'].growth_stage = 0
+                    plant['Renderable'].texture_name = plant['Plant'].growth_stage_texture_names[0]
+                    break
 
     @staticmethod
     def _distance(pos1, pos2):
@@ -222,30 +181,3 @@ class AnimalSystem():
                     return False
 
         return True
-
-    @staticmethod
-    def give_birth(entity, entities, animal_creation_func):
-        """Рождение детеныша"""
-        if ('State' in entity and entity['State'].state == "pregnant" and
-            'Animal' in entity and entity['Animal'].max_amount_of_children > 0):
-
-            pos = entity['Position']
-
-            # Ищем свободное место рядом для детеныша
-            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-            random.shuffle(directions)
-
-            for dx, dy in directions:
-                new_x, new_y = pos.x + dx, pos.y + dy
-
-                if AnimalSystem._can_move_to(new_x, new_y, map, entities):
-                    # Создаем детеныша
-                    baby = animal_creation_func(new_x, new_y, is_baby=True)
-                    entities.append(baby)
-
-                    # Сбрасываем состояние
-                    entity['State'].state = "normal"
-                    entity['Animal'].max_amount_of_children -= 1
-
-                    print(f"🐑 Родился ягненок в ({new_x},{new_y})!")
-                    break
