@@ -16,4 +16,4 @@ class GrowthSystem:
                     renderable.texture_name = plant.growth_stage_texture_names[current_stage]
                     if plant.growth_stage >= plant.growth_time:
                         plant.is_mature = True
-                        print(f"Куст {id} дал ягоды!")
+                        # print(f"Куст {id} дал ягоды!")

@@ -9,7 +9,6 @@ class TileTextures():
 class TextureManager:
     def __init__(self):
         self.textures = {}
-        self.texture_cache = {}
 
     def load_directory(self, directory_path, recursive = True):
         path = Path(directory_path)

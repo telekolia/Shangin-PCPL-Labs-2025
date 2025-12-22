@@ -1,7 +1,11 @@
 import pygame
-from world import World, map_size
+from world import World
 from textures import TextureManager
 from interface.hud import HUD
+from entity_manager import EntityManager
+from tile import Tile
+
+map_size = 10
 
 pygame.init()
 
@@ -9,8 +13,8 @@ window = pygame.display.set_mode((map_size * 64, map_size * 64))
 pygame.display.set_caption("Симуляция жизни")
 
 hud = HUD(64)
-show_stats = True
-show_hud = True
+show_stats = False
+show_hud = False
 
 clock = pygame.time.Clock()
 turn_timer = 0
@@ -19,7 +23,17 @@ turn_delay = 0.5  # секунд между ходами
 texture_manager = TextureManager()
 texture_manager.load_directory('res')
 
-world = World()
+default_map = [[Tile("g") for i in range(map_size)] for j in range(map_size)]
+for x in range(5, 7):
+    for y in range(7, 9):
+        default_map[x][y].type = "w"
+
+default_entities = []
+entity_manager = EntityManager()
+entity_manager.load_directory("entities")
+entity_manager.spawn_entity(default_entities, "bush", 1, 1)
+
+world = World(default_entities, default_map)
 world.cout()
 
 running = True

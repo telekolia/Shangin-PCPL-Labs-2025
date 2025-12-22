@@ -47,7 +47,7 @@ class AnimalSystem():
 
         if state == "hungry" and target_id not in AnimalSystem.targets:
             if AnimalSystem._find_food(entity, entities, map):
-                print("Нашёл еду")
+                pass # print("Нашёл еду")
             else:
                 entity['target_id'] = "nope"
         elif state == "chill":
@@ -78,7 +78,7 @@ class AnimalSystem():
         animal = entity['Animal']
 
         nearest_food = None
-        min_distance = float('inf')
+        min_distance = len(map)**2
 
         # Для травоядных ищем растения с ягодами
         if animal.type == "herbivore":
@@ -162,7 +162,7 @@ class AnimalSystem():
                         hunger.max_satiety,
                         hunger.current_satiety + 20
                     )
-                    print(f"🐑 Овца съела ягоды в ({food_pos.x},{food_pos.y})")
+                    # print(f"🐑 Овца съела ягоды в ({food_pos.x},{food_pos.y})")
 
                 # Ягоды исчезают (но куст остается)
                 plant['Plant'].is_mature = False
