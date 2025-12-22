@@ -23,15 +23,23 @@ turn_delay = 0.5  # секунд между ходами
 texture_manager = TextureManager()
 texture_manager.load_directory('res')
 
+pygame.display.set_icon(texture_manager.get("sheep"))
+
 default_map = [[Tile("g") for i in range(map_size)] for j in range(map_size)]
 for x in range(5, 7):
     for y in range(7, 9):
-        default_map[x][y].type = "w"
+        default_map[x][y] = Tile("w")
+for i in range(1, 9):
+    default_map[1][i] = Tile("w")
+    default_map[i][1] = Tile("w")
 
 default_entities = []
 entity_manager = EntityManager()
 entity_manager.load_directory("entities")
-entity_manager.spawn_entity(default_entities, "bush", 1, 1)
+entity_manager.spawn_entity(default_entities, "bush", 0, 0)
+entity_manager.spawn_entity(default_entities, "sheep", 9, 9)
+entity_manager.spawn_entity(default_entities, "sheep", 9, 8)
+entity_manager.spawn_entity(default_entities, "sheep", 8, 9)
 
 world = World(default_entities, default_map)
 world.cout()

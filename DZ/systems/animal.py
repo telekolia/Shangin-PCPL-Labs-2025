@@ -69,7 +69,7 @@ class AnimalSystem():
 
         if state == "chill":
             if random.random() < 0.3:
-                AnimalSystem._random_move(entity, map)
+                AnimalSystem._random_move(entity, map, entities)
 
     @classmethod
     def _find_food(self, entity, entities, map):
@@ -129,7 +129,7 @@ class AnimalSystem():
                 entity['Hunger'].current_satiety -= 0.1
 
     @staticmethod
-    def _random_move(entity, map):
+    def _random_move(entity, map, entities):
         """Случайное блуждание"""
         pos = entity['Position']
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -138,7 +138,7 @@ class AnimalSystem():
         for dx, dy in directions:
             (new_x, new_y) = (pos.x + dx, pos.y + dy)
 
-            if AnimalSystem._can_move_to(new_x, new_y, map, [entity]):
+            if AnimalSystem._can_move_to(new_x, new_y, map, entities):
                 (pos.x, pos.y) = (new_x, new_y)
 
                 # Тратим энергию
@@ -210,16 +210,12 @@ class AnimalSystem():
 
     @staticmethod
     def _can_move_to(x, y, map, entities):
-        """Можно ли переместиться в клетку"""
-        # Проверяем границы
         if x < 0 or y < 0 or x >= len(map) or y >= len(map[0]):
             return False
 
-        # Проверяем тайл
         if not map[x][y].passable:
             return False
 
-        # Проверяем других существ в клетке
         for other in entities:
             if 'Position' in other:
                 if (other['Position'].x == x and other['Position'].y == y and 'Plant' not in other):

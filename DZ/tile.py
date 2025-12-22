@@ -13,4 +13,4 @@ class Tile():
         if self.type == "g":
             window.blit(TileTextures.grass, (x, y))
         if self.type == "w":
-            window.blit(TileTextures.water, (x, y))
+            window.blit(TileTextures.water, (x , y))

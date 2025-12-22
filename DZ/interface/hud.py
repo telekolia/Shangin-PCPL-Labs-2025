@@ -129,16 +129,10 @@ class HUD():
             if not plant.is_mature:
                 # Зеленая шкала роста
                 growth_percent = min(plant.growth_stage / plant.growth_time, 1.0)
-                bar_y = y + self.offset_y
+                bar_y = y + 38
                 self._draw_simple_bar(surface, x, bar_y,
                                      plant.growth_stage, plant.growth_time,
                                      self.growth_color, "Growing")
-            else:
-                # Красная точка для ягод
-                center_x = x + self.tile_size // 2
-                berry_y = y + self.offset_y
-                pygame.draw.circle(surface, (255, 50, 50),
-                                 (center_x, berry_y), 3)
 
     def _draw_simple_bar(self, surface, x, y, current, maximum, color, label=""):
         """Нарисовать простую шкалу без анимации"""
