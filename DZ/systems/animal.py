@@ -48,6 +48,8 @@ class AnimalSystem():
         if state == "hungry" and target_id not in AnimalSystem.targets:
             if AnimalSystem._find_food(entity, entities, map):
                 print("Нашёл еду")
+            else:
+                entity['target_id'] = "nope"
         elif state == "chill":
             entity['target_id'] = "nope"
 
@@ -84,7 +86,7 @@ class AnimalSystem():
                 if ('Plant' in other and other['Plant'].is_mature and
                     'Position' in other):
                     food_pos = other['Position']
-                    target_id = id(other)
+                    target_id = other['id']
                     AnimalSystem.targets[target_id] = food_pos
                     entity['target_id'] = target_id
                     return True

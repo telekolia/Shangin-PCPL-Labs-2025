@@ -55,14 +55,11 @@ class HUD():
 
     # Отображаем target_id слева от овцы
         if 'target_id' in entity and entity['target_id'] is not None:
-            target_font = pygame.font.Font(None, 20)
-            if entity['target_id'] != "nope":
-                target_text = target_font.render("found", True, (180, 220, 255))
-            else:
-                target_text = target_font.render("nope", True, (180, 220, 255))
+            target_font = pygame.font.Font(None, 14)
+            target_text = target_font.render(f"target: {entity['target_id']}", True, (180, 220, 255))
             # Позиция слева от овцы
-            target_x = x - target_text.get_width() - 20
-            target_y = y + self.tile_size // 2
+            target_x = x + (self.tile_size - target_text.get_width()) / 2
+            target_y = y + 4
             surface.blit(target_text, (target_x, target_y))
 
         # Рисуем здоровье
