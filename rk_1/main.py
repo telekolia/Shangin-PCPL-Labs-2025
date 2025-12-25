@@ -1,3 +1,13 @@
+"""
+Вариант 25Г: Класс 1 - "Раздел",
+             Класс 2 - "Документ"
+Запросы: 1) Раздел начинается с буквы "l" и список документов в нём (1:М)
+         2) Список разделов с максимальным размером файлов в каждом разделе,
+         отсортированный по максимальному размеру (1:М)
+         3) Вывести список разделов с их файлами отсортированный по разделам (М:М)
+
+"""
+
 class Directory:
     def __init__(self, id, name):
         self.id = id
@@ -57,25 +67,29 @@ def get_directories_by_starting_letter(directories, documents, letter='l'):
 
     for directory in filtered_directories:
         directory_documents = [doc for doc in documents if doc.directory_id == directory.id]
-        result[directory] = directory_documents
+        result[directory.name] = directory_documents
 
     return result
 
 
-def first_task():
-    print("Первое задание:\n")
+def first_task(output = True):
+    if output:
+        print("Первое задание:\n")
     result = get_directories_by_starting_letter(directories, documents, 'l')
 
     i = 1
-    for directory, docs in result.items():
-        print(f"{i}. {directory.name}:")
+    for directory_name, docs in result.items():
+        if output: print(f"{i}. {directory_name}:")
         if docs:
             for doc in docs:
-                print(f"\t- {doc.name}")
+                if output: print(f"\t- {doc.name}")
         else:
-            print("\tДокументов нет")
-        print()
+            if output: print("\tДокументов нет")
+        if output: print()
         i += 1
+    if output:
+        print("Конец первого задания\n")
+    return result
 
 
 def filter_directories_by_max_size_of_documents(directories, documents):
@@ -85,28 +99,32 @@ def filter_directories_by_max_size_of_documents(directories, documents):
         directory_documents = [doc for doc in documents if doc.directory_id == directory.id]
         if directory_documents:
             max_document = max(directory_documents, key=lambda doc: doc.size)
-            directory_and_max_size[directory] = max_document.size
+            directory_and_max_size[directory.name] = max_document.size
         else:
-            directory_and_max_size[directory] = 0
+            directory_and_max_size[directory.name] = 0
 
     result = sorted(directory_and_max_size.items(), key=lambda item: item[1], reverse=True)
 
     return result
 
 
-def second_task():
-    print("Второе задание:\n")
+def second_task(output = True):
+    if output:
+        print("Второе задание:\n")
+
     result = filter_directories_by_max_size_of_documents(directories, documents)
 
     i = 1
-    for directory, max_size in result:
+    for directory_name, max_size in result:
         if max_size > 0:
-            print(f"{i}. {directory.name}: {max_size} KB")
+            if output: print(f"{i}. {directory_name}: {max_size} KB")
         else:
-            print(f"{i}. {directory.name}: нет документов")
+            if output: print(f"{i}. {directory_name}: нет документов")
         i += 1
 
-    print()
+    if output:
+        print("Конец второго задания\n")
+    return result
 
 
 def get_directories_with_documents(directories, documents, directories_documents):
@@ -118,25 +136,31 @@ def get_directories_with_documents(directories, documents, directories_documents
 
         directory_documents = [doc for doc in documents if doc.id in document_ids]
 
-        result[directory] = directory_documents
+        result[directory.name] = directory_documents
 
     return result
 
 
-def third_task():
-    print("Третье задание:\n")
+def third_task(output = True):
+    if output:
+        print("Третье задание:\n")
+
     result = get_directories_with_documents(directories, documents, directories_documents)
 
     i = 1
-    for directory, docs in result.items():
-        print(f"{i}. {directory.name}:")
+    for directory_name, docs in result.items():
+        if output: print(f"{i}. {directory_name}:")
         if docs:
             for doc in docs:
-                print(f"\t- {doc.name}")
+                if output: print(f"\t- {doc.name}")
         else:
-            print("\tДокументов нет")
-        print()
+            if output: print("\tДокументов нет")
+        if output: print()
         i += 1
+
+    if output:
+        print("Конец третьего задания\n")
+    return result
 
 
 def main():
