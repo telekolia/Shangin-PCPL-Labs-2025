@@ -5,7 +5,7 @@ from interface.hud import HUD
 from entity_manager import EntityManager
 from tile import Tile
 
-map_size = 10
+map_size = 15
 
 pygame.init()
 
@@ -36,10 +36,8 @@ for i in range(1, 9):
 default_entities = []
 entity_manager = EntityManager()
 entity_manager.load_directory("entities")
-entity_manager.spawn_entity(default_entities, "bush", 0, 0)
-entity_manager.spawn_entity(default_entities, "sheep", 9, 9)
-entity_manager.spawn_entity(default_entities, "sheep", 9, 8)
-entity_manager.spawn_entity(default_entities, "sheep", 8, 9)
+entity_manager.batch_spawn(default_entities, default_map, "bush", 15)
+entity_manager.batch_spawn(default_entities, default_map, "sheep", 20)
 
 world = World(default_entities, default_map)
 world.cout()
