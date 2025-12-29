@@ -8,11 +8,17 @@
 
 def field(items, *args):
     assert len(args) > 0
+
     result = []
     for item in items:
         dict = {}
         for arg in args:
             if arg in item:
                 dict[arg] = item[arg]
-        result.append(dict)
+
+        if len(args) == 1:
+            result.append(dict[args[0]])
+        else:
+            result.append(dict)
+
     return result
