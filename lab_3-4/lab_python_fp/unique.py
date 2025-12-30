@@ -18,12 +18,12 @@ class Unique(object):
         self.current_index = 0
 
     def __next__(self):
-        if self.current_index <= len(self.unique_items):
-            if self.current_index < len(self.unique_items):
-                self.current_index += 1
-            return self.unique_items[self.current_index - 1]
+        if self.current_index < len(self.unique_items):
+            result = self.unique_items[self.current_index]
+            self.current_index += 1
+            return result
         else:
-            print("Достигнут конец массива")
+            raise StopIteration
 
     def __iter__(self):
         return self
