@@ -6,3 +6,8 @@ import random
 # Hint: типовая реализация занимает 2 строки
 def gen_random(num_count, begin, end):
     return [random.randint(begin, end) for i in range(num_count)]
+
+if __name__ == "__main__":
+    print("Второе задание:\n")
+    print(gen_random(5, 1, 10))
+    print("\nКонец второго задания\n")

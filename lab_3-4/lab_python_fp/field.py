@@ -22,3 +22,14 @@ def field(items, *args):
             result.append(dict)
 
     return result
+
+if __name__ == "__main__":
+    goods = [
+    {'title': 'Ковер', 'price': 2000, 'color': 'green'},
+    {'title': 'Диван для отдыха', 'price': 5300, 'color': 'black'}
+    ]
+
+    print("Первое задание:\n")
+    print(field(goods, 'title'))
+    print(field(goods, 'title', 'price'))
+    print("\nКонец первого задания\n")

@@ -27,3 +27,22 @@ class Unique(object):
 
     def __iter__(self):
         return self
+
+if __name__ == "__main__":
+    print("Третье задание:\n")
+    not_uniq_mass = [4, 18, 4, 8, 1, 18, "AAA", "bobo", "aa", "Bobo", "aaA", "aaa"]
+
+    un_iterator = Unique(not_uniq_mass)
+    low_un_iterator = Unique(not_uniq_mass, ignore_case=True)
+
+    print("ignore_case = False/Not Stated\n")
+
+    for i in range (len(un_iterator.unique_items)):
+        print(un_iterator.__next__())
+
+    print("\nignore_case = True\n")
+
+    for i in range (len(low_un_iterator.unique_items)):
+        print(low_un_iterator.__next__())
+
+    print("\nКонец третьего задания\n")
