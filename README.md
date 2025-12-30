@@ -6,7 +6,8 @@
 
 - lab_1: [URL](https://github.com/ugapanyuk/BKIT_2022/wiki/lab_python_intro)
 - lab_2: [URL](https://github.com/ugapanyuk/BKIT_2022/wiki/lab_python_oop)
-- lab_3: хмм
+- lab_3-4: [URL](https://github.com/ugapanyuk/BKIT_2022/wiki/lab_python_fp)
+- lab_5 [URL](https://github.com/ugapanyuk/BKIT_2021/wiki/lab_bot1)
 
 # Итого
 
